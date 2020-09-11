@@ -134,7 +134,8 @@ The client a new `RetrievalQueryStream` for the chosen peer ID,
 and calls WriteQuery on it, which constructs a data-transfer message and writes it to the Query stream.
 */
 func (c *Client) Query(ctx context.Context, p retrievalmarket.RetrievalPeer, payloadCID cid.Cid, params retrievalmarket.QueryParams) (retrievalmarket.QueryResponse, error) {
-	err := c.addMultiaddrs(ctx, p)
+     	log.Warn("We have entered Query in retrievalmarket impl client.go")
+     	err := c.addMultiaddrs(ctx, p)
 	if err != nil {
 		log.Warn(err)
 		return retrievalmarket.QueryResponseUndefined, err
@@ -187,6 +188,7 @@ From then on, the statemachine controls the deal flow in the client. Other compo
 Documentation of the client state machine can be found at https://godoc.org/github.com/filecoin-project/go-fil-markets/retrievalmarket/impl/clientstates
 */
 func (c *Client) Retrieve(ctx context.Context, payloadCID cid.Cid, params retrievalmarket.Params, totalFunds abi.TokenAmount, p retrievalmarket.RetrievalPeer, clientWallet address.Address, minerWallet address.Address, storeID *multistore.StoreID) (retrievalmarket.DealID, error) {
+     	log.Warn("We have entered Retrieve in retrievalmarket impl client.go")
 	err := c.addMultiaddrs(ctx, p)
 	if err != nil {
 		return 0, err
@@ -291,7 +293,8 @@ func (c *Client) CancelDeal(dealID retrievalmarket.DealID) error {
 
 // GetDeal returns a given deal by deal ID, if it exists
 func (c *Client) GetDeal(dealID retrievalmarket.DealID) (retrievalmarket.ClientDealState, error) {
-	var out retrievalmarket.ClientDealState
+     	log.Warn("We have entered GetDeal in retrievalmarket impl client.go")
+     	var out retrievalmarket.ClientDealState
 	if err := c.stateMachines.Get(dealID).Get(&out); err != nil {
 		return retrievalmarket.ClientDealState{}, err
 	}
@@ -300,7 +303,8 @@ func (c *Client) GetDeal(dealID retrievalmarket.DealID) (retrievalmarket.ClientD
 
 // ListDeals lists in all known retrieval deals
 func (c *Client) ListDeals() (map[retrievalmarket.DealID]retrievalmarket.ClientDealState, error) {
-	var deals []retrievalmarket.ClientDealState
+     	log.Warn("We have entered ListDeals in retrievalmarket impl client.go")
+     	var deals []retrievalmarket.ClientDealState
 	err := c.stateMachines.List(&deals)
 	if err != nil {
 		return nil, err

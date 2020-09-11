@@ -174,6 +174,7 @@ func (c *Client) ListProviders(ctx context.Context) (<-chan storagemarket.Storag
 
 // ListDeals lists on-chain deals associated with this storage client
 func (c *Client) ListDeals(ctx context.Context, addr address.Address) ([]storagemarket.StorageDeal, error) {
+     	log.Warn("We have entered ListDeals in storagemarket impl client.go")
 	tok, _, err := c.node.GetChainHead(ctx)
 	if err != nil {
 		return nil, err
@@ -184,7 +185,8 @@ func (c *Client) ListDeals(ctx context.Context, addr address.Address) ([]storage
 
 // ListLocalDeals lists deals initiated by this storage client
 func (c *Client) ListLocalDeals(ctx context.Context) ([]storagemarket.ClientDeal, error) {
-	var out []storagemarket.ClientDeal
+     	log.Warn("We have entered ListLocalDeals in storagemarket impl client.go")
+     	var out []storagemarket.ClientDeal
 	if err := c.statemachines.List(&out); err != nil {
 		return nil, err
 	}
@@ -193,6 +195,7 @@ func (c *Client) ListLocalDeals(ctx context.Context) ([]storagemarket.ClientDeal
 
 // GetLocalDeal lists deals that are in progress or rejected
 func (c *Client) GetLocalDeal(ctx context.Context, cid cid.Cid) (storagemarket.ClientDeal, error) {
+     	log.Warn("We have entered GetLocalDeal in storagemarket impl client.go")
 	var out storagemarket.ClientDeal
 	if err := c.statemachines.Get(cid).Get(&out); err != nil {
 		return storagemarket.ClientDeal{}, err
